@@ -56,20 +56,20 @@ Line3 = ([x1([c3 cx1]); x23([c3 cx1])])';
 %  0 5]               5 0]
 % Corner Points
 
-corpt = unique([Line1; Line2; Line3], 'rows')
+corpt = unique([Line1; Line2; Line3], 'rows');
 
 % Phase 4: Intersecting points of each line
 
 % Denotes Origin(0,0) in column form
-pt = [0;0]
+pt = [0;0];
 % size(A): 3x2; size(A,1): no. of rows; size(A,2): no. of columns
 % no. of constraints
 for i = 1:size(A,1)
     for j = i+1:size(A,1)
-    A1=A([i,j], :)
-    B1=B([i,j], :)
-    x = inv(A1)*B1
-    pt = [pt x]
+    A1=A([i,j], :);
+    B1=B([i,j], :);
+    x = inv(A1)*B1;
+    pt = [pt x];
     end
 end
 
@@ -77,7 +77,23 @@ intersecting_pt = pt';
 
 % Phase 5: All corner points
 % Not all corner points are feasible'
-all_corpt = unique([intersecting_pt; corpt], 'rows')
+point = unique([intersecting_pt; corpt], 'rows');
 
+for i=1:size(point,1)
+    constraint1(i)=A(1,1)*point(i,1)+A(1,2)*point(i,2)-B(1);
+    constraint2(i)=A(2,1)*point(i,1)+A(2,2)*point(i,2)-B(2);
+    constraint3(i)=A(3,1)*point(i,1)+A(3,2)*point(i,2)-B(3);
+end
 
-
+    s1=find(constraint1>0);
+    s2=find(constraint2>0);
+    s3=find(constraint3>0);
+    s=unique([s1,s2,s3]);
+    point(s,:)=[];
+    value=point*C';
+    [obj,index]=max(value);
+    obj
+    optimalSolution=point(index,:);
+    X1=point(index,1)
+    X2=point(index,2)
+    opvalue = table(point, value, 'VariableNames', {'x1       x2', 'z'})
