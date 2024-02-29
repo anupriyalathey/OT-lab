@@ -31,3 +31,4 @@ for i=1:nCm
 end
  
  Z = C*sol
+ max(Z)

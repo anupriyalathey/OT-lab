@@ -85,11 +85,11 @@ for i=1:size(point,1)
     constraint3(i)=A(3,1)*point(i,1)+A(3,2)*point(i,2)-B(3);
 end
 
-    s1=find(constraint1>0);
-    s2=find(constraint2>0);
-    s3=find(constraint3>0);
-    s=unique([s1,s2,s3]);
-    point(s,:)=[];
+    s1=find(constraint1<=0)
+    s2=find(constraint2<=0)
+    s3=find(constraint3<=0)
+    s=intersect(s1,intersect(s2,s3))
+    point = point(s,:)
     value=point*C';
     [obj,index]=max(value);
     obj
