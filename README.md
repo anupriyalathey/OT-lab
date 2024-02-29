@@ -1,2 +1,4 @@
-## Assign 2
+## Graphical Method
 ![Alt text](image.png)
+
+## Basic Feasible Solution
