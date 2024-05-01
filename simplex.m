@@ -29,7 +29,7 @@ while RUN
                     ratio(i) = inf;
                 end
             end
-            [leaving_valur, pvt_row] = min(ratio);
+            [leaving_value, pvt_row] = min(ratio);
         end
         bv(pvt_row) = pvt_col; % replaced leaving variable with entering variable
         pvt_key = A(pvt_row, pvt_col);
